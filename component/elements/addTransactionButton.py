@@ -4,9 +4,11 @@ class transacButton:
         self.height = height
         self.x = x
         self.y = y
+        self.hovered = False
 
-    def displayButton(self,pygame,screen,hovered):
-        if hovered:
+    #Displaying the button on the screen
+    def displayButton(self,pygame,screen):
+        if self.hovered:
             button = pygame.Rect((self.x,self.y,self.width,self.height))
             pygame.draw.rect(screen,(0,0,0),button,1,40)
         else:
@@ -14,6 +16,15 @@ class transacButton:
             posY = int(self.y + (self.height / 2))
             pygame.gfxdraw.aacircle(screen,posX,posY,int(self.height / 2),(0,0,0))
 
+    #Getter of the state of the button
+    def getHovered(self):
+        return self.hovered
+    
+    #Setter to change the state of the button when the mouse pass on it
+    def setHovered(self,state):
+        self.hovered = state
+
+#Builder
 def buildingAddTransacButton(SCREEN_WIDTH,SCREEN_HEIGHT,footerHeight):
     buttonWidth = max(SCREEN_WIDTH / 100 * 15,100)
     buttonHeight = max(SCREEN_HEIGHT / 100 * 2 + SCREEN_WIDTH / 100 * 3,20)

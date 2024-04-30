@@ -9,3 +9,6 @@ class Footer:
     def displayFooter(self,pygame,screen):
         footer = pygame.Rect((self.x,self.y,self.width,self.height))
         pygame.draw.rect(screen,self.color,footer)
+
+def buildFooter(width,height,color,x,y):
+    return Footer(width,height,color,x,y)

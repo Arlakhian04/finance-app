@@ -6,6 +6,5 @@ class homeWindow:
         self.width = width
         self.height = height
     
-    def build(self):
-        footerHeight = int(self.width / 100 * 15)
-        addTransacButton = buildingAddTransacButton(self.width,self.height,footerHeight)
+    def build(self,footer_height):
+        addTransacButton = buildingAddTransacButton(self.width,self.height,footer_height)
