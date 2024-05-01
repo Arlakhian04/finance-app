@@ -29,4 +29,4 @@ def buildingAddTransacButton(SCREEN_WIDTH,SCREEN_HEIGHT,footerHeight):
     buttonWidth = max(SCREEN_WIDTH / 100 * 15,100)
     buttonHeight = max(SCREEN_HEIGHT / 100 * 2 + SCREEN_WIDTH / 100 * 3,20)
     buttonPadding = 10
-    return transacButton(buttonWidth,buttonHeight,SCREEN_WIDTH - buttonWidth - buttonPadding,SCREEN_HEIGHT - footerHeight - buttonHeight - buttonPadding)
+    return transacButton(buttonWidth,buttonHeight,int(SCREEN_WIDTH - buttonWidth - buttonPadding),int(SCREEN_HEIGHT - footerHeight - buttonHeight - buttonPadding))

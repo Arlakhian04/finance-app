@@ -1,5 +1,7 @@
 import pygame
 from pygame import gfxdraw
+import numpy as np
+
 from component.transactionElement import txCard
 from component.elements import footer
 from component.elements import addTransactionButton
@@ -16,23 +18,22 @@ SCREEN_WIDTH = infoObject.current_w
 SCREEN_HEIGHT = infoObject.current_h
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
-testPortfolioCard = pygame.Surface((300,200))
-testPortfolioCard.fill((0,0,0))
-screen.blit(testPortfolioCard,(300,300))
 pygame.display.set_caption('Finance APP')
 
 testCard = txCard.Card(index=0,sign="+",value=0,date=0,name="test",width = 200,height = 75,x = 100,y = 100)
-background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(150,150,150))
+background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(0,0,0))
 #testButton = buildingAddTransacButton(SCREEN_WIDTH=SCREEN_WIDTH,SCREEN_HEIGHT=SCREEN_HEIGHT,footerHeight=background.getFooterHeight())
 home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight())
 
 #Useful variable
 run = True
-timer = 0
+start_time = pygame.time.get_ticks()
+color = (255,255,255)
+
 while run:
     #Screen reset
-    screen.fill((255,255,255))
-    screen.blit(testPortfolioCard,(300,300))    
+    screen.fill(color) 
+    
     #Displaying elements
     background.displayBackground(pygame,screen)
     testCard.displayCard(pygame,screen)
@@ -42,10 +43,10 @@ while run:
      
     #Key event handler
     key = pygame.key.get_pressed()
-    if key[pygame.K_t] and timer >= 300:
+    if key[pygame.K_t] and (pygame.time.get_ticks() - start_time > 2000):
         transacButton.setHovered(not transacButton.getHovered())
-        timer = 0
-
+        start_time = pygame.time.get_ticks()
+    
     #Quit handler
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -53,11 +54,8 @@ while run:
         if event.type == pygame.VIDEORESIZE:
             SCREEN_HEIGHT = screen.get_height()
             SCREEN_WIDTH = screen.get_width()
-            background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(150,150,150))
-            #testButton = buildingAddTransacButton(SCREEN_WIDTH=SCREEN_WIDTH,SCREEN_HEIGHT=SCREEN_HEIGHT,footerHeight=background.getFooterHeight())
-            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight)
-
-    timer += 1
+            background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(0,0,0))
+            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight())
 
     pygame.display.update()
 
