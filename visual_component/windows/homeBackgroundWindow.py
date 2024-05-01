@@ -1,7 +1,7 @@
-from component.elements import footer
-from component.elements.footer import buildFooter
-from component.elements import header
-from component.elements.header import buildHeader
+from visual_component.elements import footer
+from visual_component.elements.footer import buildFooter
+from visual_component.elements import header
+from visual_component.elements.header import buildHeader
 
 #Class that represents the whole background from the home window which are not elements that we can interact with
 class HomeBackground:
@@ -19,6 +19,11 @@ class HomeBackground:
 
     def getFooterHeight(self):
         return self.footer_height
+    
+    def getHeaderHeight(self):
+        return self.header_height
+    
+
 
 def buildBackground(width,height,elements_color):
     footer_width = width
