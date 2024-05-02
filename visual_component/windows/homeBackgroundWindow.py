@@ -16,12 +16,6 @@ class HomeBackground:
     def displayBackground(self,pygame,screen):
         self.footer.displayFooter(pygame,screen)
         self.header.displayHeader(pygame,screen)
-
-    def getFooterHeight(self):
-        return self.footer_height
-    
-    def getHeaderHeight(self):
-        return self.header_height
     
 
 

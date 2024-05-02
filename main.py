@@ -23,7 +23,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 pygame.display.set_caption('Finance APP')
 
 background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(0,0,0))
-home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight(),background.getHeaderHeight())
+home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.footer_height,background.header_height)
 
 #Useful variable
 run = True
@@ -52,14 +52,14 @@ while run:
     #Displaying elements
     home.display(pygame,screen)
     background.displayBackground(pygame,screen)
-    transacButton = home.getTransacButton()
+    transacButton = home.transacButton
     """for i in range(6):
         portfolio_card_array[i].displayPortfolioCard(pygame,screen)"""
      
     #Key event handler
     key = pygame.key.get_pressed()
     if key[pygame.K_t] and (pygame.time.get_ticks() - start_time > 2000):
-        transacButton.setHovered(not transacButton.getHovered())
+        transacButton.setHovered(not transacButton.hovered)
         start_time = pygame.time.get_ticks()
     
     #Quit handler
@@ -76,7 +76,7 @@ while run:
             SCREEN_HEIGHT = screen.get_height()
             SCREEN_WIDTH = screen.get_width()
             background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(0,0,0))
-            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.footer_height,background.getHeaderHeight()) #Faire setter pour la height et width de chaque element pour pas avoir à tout rebuild à chaque fois
+            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.footer_height,background.header_height) #Faire setter pour la height et width de chaque element pour pas avoir à tout rebuild à chaque fois
             portfolio_card_width = int(SCREEN_WIDTH / 100 * 40) 
             portfolio_card_height = int(SCREEN_HEIGHT / 100 * 25)
             previousY = 0

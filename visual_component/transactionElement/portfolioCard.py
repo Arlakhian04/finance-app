@@ -24,12 +24,6 @@ class PortfolioCard:
         self.color = color
         self.border_color = border_color
         self.modified = modified
-
-    def getWidth(self):
-        return self.width
-    
-    def getWidth(self):
-        return self.width
     
 
     def displayPortfolioCard(self,pygame,screen):
@@ -52,10 +46,6 @@ class PortfolioCard:
             return self.index
         
         return -1
-
-    #Getter for y
-    def getY(self):
-        return self.y
 
     #Setter for y
     def setY(self,y):

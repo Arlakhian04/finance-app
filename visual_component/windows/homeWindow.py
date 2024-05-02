@@ -12,9 +12,6 @@ class homeWindow:
     def display(self,pygame,screen):
         self.transacButton.displayButton(pygame,screen)
         self.displayCards(pygame,screen)
-
-    def getTransacButton(self):
-        return self.transacButton
     
     def displayCards(self,pygame,screen):
         for i in range(6):
