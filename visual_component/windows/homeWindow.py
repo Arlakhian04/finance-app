@@ -1,13 +1,17 @@
 from visual_component.elements.addTransactionButton import buildingAddTransacButton
 from visual_component.transactionElement.portfolioCard import PortfolioCard
+from visual_component.elements.footer import buildFooter
+from visual_component.elements.header import buildHeader
 import numpy as np
 class homeWindow:
-    def __init__(self,width,height,transacButton,portfolio_array,display_index):
+    def __init__(self,width,height,transacButton,portfolio_array,footer,header,display_index):
         self.width = width
         self.height = height
         self.transacButton = transacButton
         self.portfolio_array = portfolio_array
         self.display_index = display_index
+        self.footer = footer
+        self.header = header
 
     def display(self,pygame,screen):
         self.transacButton.displayButton(pygame,screen)
@@ -17,14 +21,6 @@ class homeWindow:
         for i in range(6):
             self.portfolio_array[i].displayPortfolioCard(pygame,screen)
 
-    def modifyCard(self,index):
-        #faire un getter pour tous les éléments dûne portfolio card comme ça on peut modifier tous les éléments tout en gardant des bases
-        modifying_value = 30
-        self.portfolio_array[index] = PortfolioCard(self.portfolio_array[index].width + modifying_value,self.portfolio_array[index].height + modifying_value,
-                                                    self.portfolio_array[index].x - int(modifying_value / 2),self.portfolio_array[index].y - int(modifying_value / 2),
-                                                    self.portfolio_array[index].previousY,self.portfolio_array[index].index,self.portfolio_array[index].isDisplayed,
-                                                    self.portfolio_array[index].color, self.portfolio_array[index].border_color,modified = True)
-
     def mouseCollideCards(self,mouse_position):
         for card in self.portfolio_array:
             if card.isDisplayed:
@@ -33,13 +29,14 @@ class homeWindow:
                     return index
             
         return -1
-        """
-        
 
-        Faire une liste avec les index des displayed comme ça pas besoin d itérer sur toute la liste à chaque fois
+    def resize(self,width,height):
+        scale_X = width / self.width
+        scale_Y = height / self.height
+        self.width = width
+        self.height = height
 
-        """ 
-def build(width,height,footer_height,header_height):
+def build(width,height):
     """
 
     Args:
@@ -51,6 +48,13 @@ def build(width,height,footer_height,header_height):
     Returns:
         an object of type homeWindow
     """
+    footer_width = width
+    footer_height = int(max(height / 100 * 10,20))
+    footer_border_thickness = 1
+    footer = buildFooter(footer_width,footer_height,footer_border_thickness,0,height - footer_height)
+    header_height = int(max(height / 100 * 3, 7))
+    header_width = width
+    header = buildHeader(header_width,header_height,0,0)
     number_cards = 6
     portfolio_card_array = np.empty(number_cards,dtype = object)
     portfolio_card_width = int(width / 100 * 40)
@@ -69,7 +73,7 @@ def build(width,height,footer_height,header_height):
         if (display and ((previousY + portfolio_card_height) >= (height - footer_height))):
             display = False
         previousY = card_y
-        card_y += portfolio_card_height + padding
+        card_y += portfolio_card_array[i].height + padding
 
-    addTransacButton = buildingAddTransacButton(width,height,footer_height)
-    return homeWindow(width,height,addTransacButton,portfolio_card_array,display_index)
+    transacButton = buildingAddTransacButton(width,height,footer_height)
+    return homeWindow(width=width,height=height,transacButton=transacButton,portfolio_array=portfolio_card_array,footer=footer,header=header,display_index=display_index)

@@ -30,20 +30,6 @@ run = True
 start_time = pygame.time.get_ticks()
 color = (255,255,255)
 
-#The portfolios are a singly linked list
-#Move it to home
-"""portfolio_card_array = np.empty(6,dtype = object)
-portfolio_card_width = int(SCREEN_WIDTH / 100 * 40)
-portfolio_card_height = int(SCREEN_HEIGHT / 100 * 25)
-previousY = 0
-for i in range(6):
-    portfolio_card_array[i] = PortfolioCard(portfolio_card_width, portfolio_card_height, 
-                                                        SCREEN_WIDTH / 2 - portfolio_card_width / 2,
-                                                        header_height + previousY,previousY,
-                                                        i,True,(0,0,0))
-    previousY = portfolio_card_height + previousY + 40"""
-
-
 
 while run:
     #Screen reset
@@ -53,8 +39,6 @@ while run:
     home.display(pygame,screen)
     background.displayBackground(pygame,screen)
     transacButton = home.transacButton
-    """for i in range(6):
-        portfolio_card_array[i].displayPortfolioCard(pygame,screen)"""
      
     #Key event handler
     key = pygame.key.get_pressed()
@@ -67,8 +51,7 @@ while run:
         if event.type == pygame.MOUSEMOTION:
             mouse_position = pygame.mouse.get_pos()
             index = home.mouseCollideCards(mouse_position)
-            if(index != -1) and not home.portfolio_array[index].modified:
-                home.modifyCard(index)
+            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.footer_height,background.header_height)
 
         if event.type == pygame.QUIT:
             run = False
@@ -80,13 +63,7 @@ while run:
             portfolio_card_width = int(SCREEN_WIDTH / 100 * 40) 
             portfolio_card_height = int(SCREEN_HEIGHT / 100 * 25)
             previousY = 0
-            """for i in range(6):
-                portfolio_card_array[i] = PortfolioCard(portfolio_card_width, portfolio_card_height, 
-                                                        SCREEN_WIDTH / 2 - portfolio_card_width / 2,
-                                                        portfolio_card_height + previousY,previousY,
-                                                        i,True,(0,0,0))
-                previousY = portfolio_card_height + previousY + 40
-"""
+
     pygame.display.update()
 
 pygame.quit()

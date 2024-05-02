@@ -1,9 +1,10 @@
+from elements_constant import FOOTER_BORDER_COLOR_LIGHT,FOOTER_COLOR_LIGHT
 class Footer:
-    def __init__(self,width,height,color,border_color,border_thickness,x,y):
+    def __init__(self,width,height,border_thickness,x,y):
         self.width = width
         self.height = height
-        self.color = color
-        self.border_color = border_color
+        self.color = FOOTER_COLOR_LIGHT
+        self.border_color = FOOTER_BORDER_COLOR_LIGHT
         self.border_thickness = border_thickness
         self.x = x
         self.y = y
@@ -14,5 +15,5 @@ class Footer:
         pygame.draw.rect(screen,self.border_color,footer_border)
         pygame.draw.rect(screen,self.color,footer)
 
-def buildFooter(width,height,color,border_color,border_thickness,x,y):
-    return Footer(width,height,color,border_color,border_thickness,x,y)
+def buildFooter(width,height,border_thickness,x,y):
+    return Footer(width,height,border_thickness,x,y)

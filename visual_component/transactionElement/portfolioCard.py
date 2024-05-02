@@ -1,8 +1,10 @@
 #Class to make protfolio card
 from visual_component.random import aafilledRoundedRect
 from visual_component.random.aafilledRoundedRect import AAfilledRoundedRect
+from transaction_constant import PORTFOLIO_CARD_COLOR
+from transaction_constant import PORTFOLIO_CARD_BORDER_COLOR
 class PortfolioCard:
-    def __init__(self,width,height,x,y,previousY,index,isDisplayed,color,border_color,modified):
+    def __init__(self,width,height,x,y,previousY,index,isDisplayed,modified):
         """Initialize an object PortfolioCard
         Args:
             width (int): width of the card
@@ -21,8 +23,8 @@ class PortfolioCard:
         self.previousY = previousY
         self.index = index
         self.isDisplayed = isDisplayed
-        self.color = color
-        self.border_color = border_color
+        self.color = PORTFOLIO_CARD_COLOR
+        self.border_color = PORTFOLIO_CARD_BORDER_COLOR
         self.modified = modified
     
 
@@ -33,28 +35,29 @@ class PortfolioCard:
             screen (pygame.Surface): surface where we display the card
         """
         if self.isDisplayed:
+            modifying_value = 30
             border_thickness = 2
-            border = pygame.Rect((self.x - int(border_thickness / 2),self.y - int(border_thickness / 2),
-                                  self.width + border_thickness, self.height + border_thickness))
-            card = pygame.Rect((self.x,self.y,self.width,self.height))
-            AAfilledRoundedRect(screen, border,self.border_color)
-            self.rect = AAfilledRoundedRect(screen,card,self.color)
+            if self.modified:
+                new_x = self.x - int(modifying_value / 2)
+                new_y = self.y
+                new_width = self.width + modifying_value
+                new_height = self.height + modifying_value
+                border = pygame.Rect((new_x - int(border_thickness / 2),new_y - int(border_thickness / 2),
+                                    new_width + border_thickness, new_height + border_thickness))
+                card = pygame.Rect((new_x,new_y,new_width,new_height))
+                self.rect = AAfilledRoundedRect(screen, border,self.border_color)
+                AAfilledRoundedRect(screen,card,self.color)
+            else:
+                border = pygame.Rect((self.x - int(border_thickness / 2),self.y - int(border_thickness / 2),
+                                    self.width + border_thickness, self.height + border_thickness))
+                card = pygame.Rect((self.x,self.y,self.width,self.height))
+                AAfilledRoundedRect(screen, border,self.border_color)
+                self.rect = AAfilledRoundedRect(screen,card,self.color)
         
     def mouseCollide(self,mouse_position):
-        print("collide")
         if self.rect.collidepoint(mouse_position[0],mouse_position[1]):
+            self.modified = True
             return self.index
         
+        self.modified = False
         return -1
-
-    #Setter for y
-    def setY(self,y):
-        self.y = y
-
-    #Method to know if a portfolio card is displayed
-    def isDisplayed(self):
-        return self.isDisplayed
-    
-    #Setter for isDisplay
-    def setIsDisplay(self,isDisplayed):
-        self.isDisplayed = isDisplayed
