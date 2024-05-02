@@ -28,7 +28,7 @@ home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight(),background.
 #Useful variable
 run = True
 start_time = pygame.time.get_ticks()
-color = (100,100,100)
+color = (255,255,255)
 
 #The portfolios are a singly linked list
 #Move it to home
@@ -50,7 +50,7 @@ while run:
     screen.fill(color) 
 
     #Displaying elements
-    home.display(pygame,screen,SCREEN_WIDTH,SCREEN_HEIGHT,background.getHeaderHeight())
+    home.display(pygame,screen)
     background.displayBackground(pygame,screen)
     transacButton = home.getTransacButton()
     """for i in range(6):
@@ -64,14 +64,20 @@ while run:
     
     #Quit handler
     for event in pygame.event.get():
+        if event.type == pygame.MOUSEMOTION:
+            mouse_position = pygame.mouse.get_pos()
+            index = home.mouseCollideCards(mouse_position)
+            if(index != -1) and not home.portfolio_array[index].modified:
+                home.modifyCard(index)
+
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.VIDEORESIZE:
             SCREEN_HEIGHT = screen.get_height()
             SCREEN_WIDTH = screen.get_width()
             background = buildBackground(SCREEN_WIDTH,SCREEN_HEIGHT,(0,0,0))
-            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.getFooterHeight(),background.getHeaderHeight()) #Faire setter pour la height et width de chaque element pour pas avoir à tout rebuild à chaque fois
-            portfolio_card_width = int(SCREEN_WIDTH / 100 * 40)
+            home = build(SCREEN_WIDTH,SCREEN_HEIGHT,background.footer_height,background.getHeaderHeight()) #Faire setter pour la height et width de chaque element pour pas avoir à tout rebuild à chaque fois
+            portfolio_card_width = int(SCREEN_WIDTH / 100 * 40) 
             portfolio_card_height = int(SCREEN_HEIGHT / 100 * 25)
             previousY = 0
             """for i in range(6):

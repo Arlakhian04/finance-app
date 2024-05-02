@@ -28,7 +28,9 @@ class HomeBackground:
 def buildBackground(width,height,elements_color):
     footer_width = width
     footer_height = int(max(height / 100 * 10,20))
-    footer = buildFooter(footer_width,footer_height,(elements_color),0,height - footer_height)
+    footer_border_color = (255,255,255)
+    footer_border_thickness = 1
+    footer = buildFooter(footer_width,footer_height,(elements_color),footer_border_color,footer_border_thickness,0,height - footer_height)
     header_height = int(max(height / 100 * 3, 7))
     header_width = width
     header = buildHeader(header_width,header_height,(elements_color),0,0)
